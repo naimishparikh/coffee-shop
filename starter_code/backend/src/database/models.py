@@ -6,7 +6,7 @@ import json
 database_filename = "database.db"
 project_dir = os.path.dirname(os.path.abspath(__file__))
 database_path = "sqlite:///{}".format(os.path.join(project_dir, database_filename))
-
+print("db path" + database_path)
 db = SQLAlchemy()
 
 '''
@@ -64,7 +64,6 @@ class Drink(db.Model):
     '''
 
     def short(self):
-        print(json.loads(self.recipe))
         short_recipe = [{'color': r['color'], 'parts': r['parts']} for r in json.loads(self.recipe)]
         return {
             'id': self.id,
@@ -78,6 +77,9 @@ class Drink(db.Model):
     '''
 
     def long(self):
+        #print("In Long  self recipe ", type(self.recipe))
+        print("In Long json loads type ",type(json.loads(self.recipe)))
+
         return {
             'id': self.id,
             'title': self.title,
@@ -95,8 +97,11 @@ class Drink(db.Model):
     '''
 
     def insert(self):
+        print("In insert self ")
         db.session.add(self)
+        print("self after add")
         db.session.commit()
+        print("self after commit")
 
     '''
     delete()
@@ -108,8 +113,11 @@ class Drink(db.Model):
     '''
 
     def delete(self):
+        print("In delete")
         db.session.delete(self)
+        print("after delete self")
         db.session.commit()
+        print("after commit self")
 
     '''
     update()

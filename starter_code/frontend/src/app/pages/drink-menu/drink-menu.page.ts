@@ -19,14 +19,16 @@ export class DrinkMenuPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    console.log("In ngOnInit");
     this.drinks.getDrinks();
   }
 
   async openForm(activedrink: Drink = null) {
     if (!this.auth.can('get:drinks-detail')) {
+      console.log("In OpenForm before return")
       return;
     }
-
+    console.log("In OpenForm")
     const modal = await this.modalCtrl.create({
       component: DrinkFormComponent,
       componentProps: { drink: activedrink, isNew: !activedrink }
